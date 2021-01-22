@@ -7,6 +7,7 @@ import com.example.mreview.entity.Movie;
 import com.example.mreview.entity.MovieImage;
 import com.example.mreview.repository.MovieImageRepository;
 import com.example.mreview.repository.MovieRepository;
+import com.example.mreview.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -29,6 +30,16 @@ public class MovieServiceImpl implements MovieService{
     private final MovieRepository movieRepository;
 
     private final MovieImageRepository imageRepository;
+
+    private final ReviewRepository reviewRepository;
+
+    @Transactional
+    @Override
+    public void deleteMovie(Long mno) {
+        reviewRepository.deleteByMovie(mno);
+        imageRepository.deleteByMovie(mno);
+        movieRepository.deleteById(mno);
+    }
 
     @Transactional
     @Override

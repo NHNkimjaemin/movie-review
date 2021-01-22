@@ -63,6 +63,7 @@
         </button>
 
         <button type="button" class="btn btn-info addReviewBtn">Review Register</button>
+        <button type="button" class="btn btn-info removeMovieBtn">Remove Movie</button>
 
         <div class="list-group reviewList">
             
@@ -239,6 +240,19 @@
                 }
             })
             reviewModal.modal('hide');
+        })
+
+        $(".removeMovieBtn").on("click", function() {
+            $.ajax({
+                url: '/movie/delete/'+mno,
+                type: 'DELETE',
+                contentType:"application/json; charset=utf-8",
+                dataType: 'text',
+                success: function(result) {
+                    console.log(result);
+                }
+            })
+
         })
 
         $(".uploadResult li").click(function() {

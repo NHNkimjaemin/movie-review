@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -39,7 +36,7 @@ public class MovieController {
     }
 
     @GetMapping("/list")
-    public void list(PageRequestDTO pageRequestDTO, Model model){
+    public void list(PageRequestDTO pageRequestDTO, Model model){  //Model model을 해놓으면 스프링이 알아서 모델을 만들어 줌.
         log.info("page Request dto: " + pageRequestDTO);
 
         model.addAttribute("result", movieService.getList(pageRequestDTO));
@@ -54,5 +51,12 @@ public class MovieController {
         model.addAttribute("dto", movieDTO);
     }
 
+    @DeleteMapping("/delete/{mno}")
+    public String delete(@PathVariable("mno") Long mno) {
+        log.info("delete mno: "+ mno);
 
+        movieService.deleteMovie(mno);
+
+        return "redirect:/movie/list";
+    }
 }

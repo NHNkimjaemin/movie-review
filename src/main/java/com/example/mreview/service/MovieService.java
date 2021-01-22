@@ -17,6 +17,8 @@ public interface MovieService {
 
     MovieDTO getMovie(Long mno);
 
+    void deleteMovie(Long mno);
+
     PageResultDTO<MovieDTO, Object[]> getList(PageRequestDTO requestDTO);
 
     default Map<String, Object > dtoToEntity(MovieDTO movieDTO) {
